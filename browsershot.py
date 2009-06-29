@@ -38,13 +38,19 @@ def _main():
     parser.add_option("-w", dest="wait", action="store", type="int",
                       metavar="<seconds>", default=5,
                       help="wait before taking screenshots (default 5)")
+    parser.add_option("-m", dest="max_pages", action="store", type="int",
+                      metavar="<number-of-pages>", default=7,
+                      help="maximum number of pages to shoot (default 7)")
+    parser.add_option("-v", dest="verbose", action="store", type="int",
+                      metavar="<verbosity-level>", default=3,
+                      help="verbosity level (default 3)")
     (options, args) = parser.parse_args()
-    config = {'width': 1024, 'bpp': 32}
+    config = {'height':768, 'width': 1024, 'bpp': 32, 'request':123}
 
     system = platform.system()
     if system == 'Linux':
-        from shotfactory04.gui import linux
-        gui = linux.Gui(config, options)
+        from shotfactory04.gui.linux import firefox as gui_module
+        gui = gui_module.Gui(config, options)
     else:
         raise NotImplemented(system)
 
